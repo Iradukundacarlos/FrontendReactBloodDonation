@@ -1,6 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -96,26 +95,19 @@ export default function Header() {
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           <Link to="/" className="text-2xl font-bold text-primary">
-            EventHQ
+            VitalDrop
           </Link>
           <nav className="hidden md:flex space-x-4">
             <Link to="/" className="text-foreground hover:text-primary">
               Home
             </Link>
             <Link to="/events" className="text-foreground hover:text-primary">
-              Events
+              Bookings
             </Link>
             <Link to="/venues" className="text-foreground hover:text-primary">
-              Venues
+              Donate
             </Link>
           </nav>
-          <form className="hidden md:flex">
-            <Input
-              type="search"
-              placeholder="Search events..."
-              className="w-[200px] lg:w-[300px]"
-            />
-          </form>
           <div className="flex items-center space-x-4">
             {!isLoggedIn() ? (
               <div className="space-x-2">
