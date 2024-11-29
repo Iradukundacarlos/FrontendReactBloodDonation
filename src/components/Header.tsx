@@ -1,131 +1,117 @@
-import { Link, useNavigate } from 'react-router-dom';
-import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { User, LogOut } from 'lucide-react';
-import ThemeToggle from './global/ThemeToggle';
-import { toast } from 'react-hot-toast';
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { Button } from './ui/button';
+import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger } from './ui/navigation-menu';
+import { cn } from './../lib/utils';
 
-enum UserRole {
-  USER = 'USER',
-  ORGANIZER = 'ORGANIZER',
-  ADMIN = 'ADMIN',
-}
-
-const userUrls = {
-  [UserRole.USER]: [
-    { label: 'My Bookings', href: '/bookings' },
-    { label: 'My Profile', href: '/profile' },
-  ],
-  [UserRole.ORGANIZER]: [
-    { label: 'Events Management', href: '/org/events' },
-    { label: 'Venue Management', href: '/org/venues' },
-    { label: 'Analytics', href: '/org/analytics' },
-    { label: 'Reviews', href: '/org/reviews' },
-    { label: 'Organization', href: '/org/organization' },
-    { label: 'My Profile', href: '/profile' },
-  ],
-  [UserRole.ADMIN]: [
-    { label: 'Admin Dashboard', href: '/admin' },
-    { label: 'Manage Events', href: '/admin/events' },
-    { label: 'Manage Users', href: '/admin/users' },
-    { label: 'Manage Bookings', href: '/admin/bookings' },
-  ],
-};
-
-export default function Header() {
-  const navigate = useNavigate();
-  const isLoggedIn = () => true;
-  const user = { name: 'John Doe', role: 'USER' };
-  const logout = () => {
-    console.log('logout');
-
-  };
-
-  const handleSignOut = async () => {
-    try {
-      await logout();
-      toast.success("Signed out successfully");
-      navigate('/');
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    } catch (error) {
-      toast.error("Failed to sign out. Please try again.");
-    }
-  };
-
-  const renderUserMenu = () => {
-    if (!isLoggedIn() || !user) return null;
-
-    const userLinks = userUrls[user.role as UserRole] || [];
-
-    return (
-      <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <Button variant="outline" className="flex items-center gap-2">
-            <User className="h-4 w-4" />
-            <span className="hidden md:inline">{user.name}</span>
-          </Button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent className="w-56">
-          <DropdownMenuLabel>My Account</DropdownMenuLabel>
-          <DropdownMenuSeparator />
-          {userLinks.map((link, index) => (
-            <DropdownMenuItem key={index} asChild>
-              <Link to={link.href}>{link.label}</Link>
-            </DropdownMenuItem>
-          ))}
-          <DropdownMenuSeparator />
-          <DropdownMenuItem onSelect={handleSignOut}>
-            <LogOut className="mr-2 h-4 w-4" />
-            <span>Log out</span>
-          </DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
-    );
-  };
-
+const Header: React.FC = () => {
   return (
-    <header className="bg-background border-b md:px-10">
-      <div className="container mx-auto px-4 py-4">
-        <div className="flex items-center justify-between">
-          <Link to="/" className="text-2xl font-bold text-primary">
-            VitalDrop
+    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 px-4 md:px-20">
+      <div className="container flex h-14 items-center">
+        <div className="mr-4 hidden md:flex">
+          <a className="mr-6 flex items-center space-x-2" href="/">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6">
+              <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+            </svg>
+            <span className="hidden font-bold sm:inline-block">
+              Blood Donation System
+            </span>
+          </a>
+          <NavigationMenu>
+            <NavigationMenuList>
+              <NavigationMenuItem>
+                <NavigationMenuTrigger>Home</NavigationMenuTrigger>
+                <NavigationMenuContent>
+                  <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
+                    <li className="row-span-3">
+                      <NavigationMenuLink asChild>
+                        <a
+                          className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
+                          href="/"
+                        >
+                          <div className="mb-2 mt-4 text-lg font-medium">
+                            Blood Donation Management System
+                          </div>
+                          <p className="text-sm leading-tight text-muted-foreground">
+                            Streamline blood donation, save lives effortlessly.
+                          </p>
+                        </a>
+                      </NavigationMenuLink>
+                    </li>
+                    <ListItem href="#about" title="About Us">
+                      Learn why our system is the best choice
+                    </ListItem>
+                    <ListItem href="#features" title="Features">
+                      Explore our powerful tools for donors and admins
+                    </ListItem>
+                    <ListItem href="#how-it-works" title="How It Works">
+                      Understand our streamlined process
+                    </ListItem>
+                  </ul>
+                </NavigationMenuContent>
+              </NavigationMenuItem>
+              <NavigationMenuItem>
+                <NavigationMenuTrigger>Resources</NavigationMenuTrigger>
+                <NavigationMenuContent>
+                  <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
+                    <ListItem href="#screenshots" title="Screenshots">
+                      See the platform in action
+                    </ListItem>
+                    <ListItem href="#testimonials" title="Testimonials">
+                      What people are saying about us
+                    </ListItem>
+                    <ListItem href="#future-features" title="Future Features">
+                      Exciting updates coming soon
+                    </ListItem>
+                    <ListItem href="#contact" title="Contact Us">
+                      Get in touch with our team
+                    </ListItem>
+                  </ul>
+                </NavigationMenuContent>
+              </NavigationMenuItem>
+            </NavigationMenuList>
+          </NavigationMenu>
+        </div>
+        <div className="flex flex-1 items-center justify-between space-x-2 md:justify-end">
+          <Link to="/login">
+            <Button variant="ghost" className="text-base hover:bg-transparent hover:underline">
+              Log in
+            </Button>
           </Link>
-          <nav className="hidden md:flex space-x-4">
-            <Link to="/" className="text-foreground hover:text-primary">
-              Home
-            </Link>
-            <Link to="/events" className="text-foreground hover:text-primary">
-              Bookings
-            </Link>
-            <Link to="/venues" className="text-foreground hover:text-primary">
-              Donate
-            </Link>
-          </nav>
-          <div className="flex items-center space-x-4">
-            {!isLoggedIn() ? (
-              <div className="space-x-2">
-                <Link to="/login">
-                  <Button variant="outline">Login</Button>
-                </Link>
-                <Link to="/register">
-                  <Button>Register</Button>
-                </Link>
-              </div>
-            ) : (
-              renderUserMenu()
-            )}
-            <ThemeToggle />
-          </div>
+          <Link to="/register">
+            <Button>Get Started</Button>
+          </Link>
         </div>
       </div>
     </header>
   );
-}
+};
+
+const ListItem = React.forwardRef<
+  React.ElementRef<"a">,
+  React.ComponentPropsWithoutRef<"a">
+>(({ className, title, children, ...props }, ref) => {
+  return (
+    <li>
+      <NavigationMenuLink asChild>
+        <a
+          ref={ref}
+          className={cn(
+            "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
+            className
+          )}
+          {...props}
+        >
+          <div className="text-sm font-medium leading-none">{title}</div>
+          <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+            {children}
+          </p>
+        </a>
+      </NavigationMenuLink>
+    </li>
+  );
+});
+ListItem.displayName = "ListItem";
+
+export default Header
 

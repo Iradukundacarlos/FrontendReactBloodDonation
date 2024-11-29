@@ -5,6 +5,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { fetchUsers, deleteUser } from '../lib/api';
 import { User } from '@/types';
 import { Button } from './ui/button';
+import { exportUsersToCSV } from '@/lib/exportUtils';
 
 export function UserManagementTable() {
   const [rowSelection, setRowSelection] = useState({});
@@ -93,7 +94,7 @@ export function UserManagementTable() {
           <Button onClick={() => console.log('Add New User')}>
             Add New User
           </Button>
-          <Button onClick={() => console.log('Download Data')}>
+          <Button onClick={() => exportUsersToCSV(users)}>
             Download Data
           </Button>
           <Button onClick={() => console.log('Upload Data')}>
