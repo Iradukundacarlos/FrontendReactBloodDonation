@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { LayoutDashboard, Users, ShoppingCart, FileText, Settings, HelpCircle, ChevronLeft, ChevronRight, LogOut } from 'lucide-react';
-import ThemeToggle from './global/ThemeToggle';
 
 const sidebarItems = [
   {
@@ -81,7 +80,6 @@ export default function AdminSidebar() {
         "mt-auto p-4 border-t",
         collapsed ? "flex justify-center" : "space-y-4"
       )}>
-        {!collapsed && <ThemeToggle />}
         <Button
           variant="ghost"
           size={collapsed ? "icon" : "default"}
