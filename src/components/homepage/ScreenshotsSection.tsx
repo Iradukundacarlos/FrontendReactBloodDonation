@@ -1,13 +1,31 @@
-import React from 'react';
-import { Card, CardContent } from '../ui/card';
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '../ui/carousel';
-import { Button } from '../ui/button';
+import React from "react";
+import { Card, CardContent } from "../ui/card";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "../ui/carousel";
+import { Button } from "../ui/button";
 
 const screenshots = [
-  { src: "/placeholder.svg?height=400&width=600", alt: "Registration Page" },
-  { src: "/placeholder.svg?height=400&width=600", alt: "Admin Dashboard" },
-  { src: "/placeholder.svg?height=400&width=600", alt: "Notification System" },
-  { src: "/placeholder.svg?height=400&width=600", alt: "Search Interface" },
+  {
+    src: "/World blood donor day background Design.jpg?height=400&width=600",
+    alt: "Registration Page",
+  },
+  {
+    src: "/World blood donor day background Design.jpg?height=400&width=600",
+    alt: "Admin Dashboard",
+  },
+  {
+    src: "/World blood donor day background Design.jpg?height=400&width=600",
+    alt: "Notification System",
+  },
+  {
+    src: "/World blood donor day background Design.jpg?height=400&width=600",
+    alt: "Search Interface",
+  },
 ];
 
 const ScreenshotsSection: React.FC = () => {
@@ -44,5 +62,4 @@ const ScreenshotsSection: React.FC = () => {
   );
 };
 
-export default ScreenshotsSection
-
+export default ScreenshotsSection;

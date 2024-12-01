@@ -1,5 +1,11 @@
-import React from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../ui/card';
+import React from "react";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "../ui/card";
 
 const AboutSection: React.FC = () => {
   return (
@@ -12,18 +18,24 @@ const AboutSection: React.FC = () => {
           <Card>
             <CardHeader>
               <CardTitle>Simplifying Blood Donation</CardTitle>
-              <CardDescription>Fostering a healthier, more connected community</CardDescription>
+              <CardDescription>
+                Fostering a healthier, more connected community
+              </CardDescription>
             </CardHeader>
             <CardContent>
               <p>
-                Our platform simplifies the entire blood donation process, ensuring a seamless, user-friendly experience for everyone involved. From donor registration to efficient admin oversight, we're committed to making blood donation accessible and efficient.
+                Our platform simplifies the entire blood donation process,
+                ensuring a seamless, user-friendly experience for everyone
+                involved. From donor registration to efficient admin oversight,
+                we're committed to making blood donation accessible and
+                efficient.
               </p>
             </CardContent>
           </Card>
           <div className="relative h-64 md:h-full">
             <div className="absolute inset-0 bg-gradient-to-tr from-primary/30 to-secondary/30 rounded-lg"></div>
             <img
-              src="/placeholder.svg?height=400&width=600"
+              src="/Download Man sitting in medical chair donating his blood_ Blood donation concept for free.jpg?height=400&width=600"
               alt="Digital dashboard showing analytics"
               className="rounded-lg object-cover object-center"
             />
@@ -34,5 +46,4 @@ const AboutSection: React.FC = () => {
   );
 };
 
-export default AboutSection
-
+export default AboutSection;

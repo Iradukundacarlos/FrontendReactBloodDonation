@@ -1,50 +1,54 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
-import { LayoutDashboard, Users, ShoppingCart, FileText, Settings, HelpCircle, ChevronLeft, ChevronRight, LogOut } from 'lucide-react';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import { cn } from "../lib/utils";
+import { Button } from "./ui/button";
+import { useNavigate } from "react-router-dom";
+import {
+  LayoutDashboard,
+  Users,
+  ShoppingCart,
+  FileText,
+  Settings,
+  HelpCircle,
+  ChevronLeft,
+  ChevronRight,
+  LogOut,
+} from "lucide-react";
 
 const sidebarItems = [
   {
     title: "Dashboard",
     icon: LayoutDashboard,
-    link: "/admin/dashboard"
+    link: "/admin/dashboard",
   },
   {
     title: "Users",
     icon: Users,
-    link: "/admin/users"
-  },
-  {
-    title: "Products",
-    icon: ShoppingCart,
-    link: "/admin/products"
-  },
-  {
-    title: "Orders",
-    icon: FileText,
-    link: "/admin/orders"
+    link: "/admin/dashboard",
   },
   {
     title: "Settings",
     icon: Settings,
-    link: "/admin/settings"
+    link: "/me",
   },
-  {
-    title: "Help",
-    icon: HelpCircle,
-    link: "/admin/help"
-  }
 ];
 
 export default function AdminSidebar() {
   const [collapsed, setCollapsed] = useState(false);
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    navigate("/login");
+  };
 
   return (
-    <aside className={cn(
-      "flex flex-col h-screen bg-background border-r transition-all duration-300 ease-in-out",
-      collapsed ? "w-16" : "w-64"
-    )}>
+    <aside
+      className={cn(
+        "flex flex-col h-screen bg-background border-r transition-all duration-300 ease-in-out",
+        collapsed ? "w-16" : "w-64"
+      )}
+    >
       <div className="flex items-center justify-between p-4">
         {!collapsed && <h1 className="text-xl font-bold">Admin Panel</h1>}
         <Button
@@ -53,7 +57,11 @@ export default function AdminSidebar() {
           onClick={() => setCollapsed(!collapsed)}
           aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
         >
-          {collapsed ? <ChevronRight className="h-4 w-4" /> : <ChevronLeft className="h-4 w-4" />}
+          {collapsed ? (
+            <ChevronRight className="h-4 w-4" />
+          ) : (
+            <ChevronLeft className="h-4 w-4" />
+          )}
         </Button>
       </div>
 
@@ -76,14 +84,17 @@ export default function AdminSidebar() {
         </ul>
       </nav>
 
-      <div className={cn(
-        "mt-auto p-4 border-t",
-        collapsed ? "flex justify-center" : "space-y-4"
-      )}>
+      <div
+        className={cn(
+          "mt-auto p-4 border-t",
+          collapsed ? "flex justify-center" : "space-y-4"
+        )}
+      >
         <Button
           variant="ghost"
           size={collapsed ? "icon" : "default"}
           className="w-full"
+          onClick={handleLogout}
         >
           <LogOut className="h-5 w-5 mr-2" />
           {!collapsed && "Logout"}
@@ -92,4 +103,3 @@ export default function AdminSidebar() {
     </aside>
   );
 }
-

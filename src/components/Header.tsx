@@ -1,16 +1,35 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { Button } from './ui/button';
-import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger } from './ui/navigation-menu';
-import { cn } from './../lib/utils';
+import React from "react";
+import { Link } from "react-router-dom";
+import { Button } from "./ui/button";
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+} from "./ui/navigation-menu";
+import { cn } from "./../lib/utils";
+import { useAuth } from "../context/AuthContext";
 
-const Header: React.FC = () => {
+const Header = () => {
+  const { isAuthenticated, logout } = useAuth();
+
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 px-4 md:px-20">
       <div className="container flex h-14 items-center">
         <div className="mr-4 hidden md:flex">
           <a className="mr-6 flex items-center space-x-2" href="/">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="h-6 w-6"
+            >
               <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
             </svg>
             <span className="hidden font-bold sm:inline-block">
@@ -73,14 +92,29 @@ const Header: React.FC = () => {
           </NavigationMenu>
         </div>
         <div className="flex flex-1 items-center justify-between space-x-2 md:justify-end">
-          <Link to="/login">
-            <Button variant="ghost" className="text-base hover:bg-transparent hover:underline">
-              Log in
+          {!isAuthenticated ? (
+            <>
+              <Link to="/login">
+                <Button
+                  variant="ghost"
+                  className="text-base hover:bg-transparent hover:underline"
+                >
+                  Log in
+                </Button>
+              </Link>
+              <Link to="/register">
+                <Button>Get Started</Button>
+              </Link>
+            </>
+          ) : (
+            <Button
+              variant="ghost"
+              onClick={logout}
+              className="text-base hover:bg-transparent hover:underline"
+            >
+              Log out
             </Button>
-          </Link>
-          <Link to="/register">
-            <Button>Get Started</Button>
-          </Link>
+          )}
         </div>
       </div>
     </header>
@@ -113,5 +147,4 @@ const ListItem = React.forwardRef<
 });
 ListItem.displayName = "ListItem";
 
-export default Header
-
+export default Header;
